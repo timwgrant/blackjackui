@@ -1,13 +1,14 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import '../node_modules/mini.css/dist/mini-default.min.css';
+
+.card {
+  display: inline-block; /* Display images in a row */
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.card img {
+  /*width: 50%;  Set the image width to 50% of the container */
+ /* height: 50%; Set the image height to 50% of the container */
+  margin: 0; /* Remove margin to eliminate padding between images */
+  display: block; /* Make sure the image is a block element */
+
+  
 }
