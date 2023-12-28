@@ -11,8 +11,8 @@ function CardDisplay(props: CardDisplayProps) {
 
 
     return (
-        <div className="card">
-            {<img src={card.imageUrl} alt={card.imageUrl} />}
+        <div className='card' >
+            {<img width="50%" height="50%" src={card.imageUrl} alt={card.imageUrl} />}
         </div>
     );
 }

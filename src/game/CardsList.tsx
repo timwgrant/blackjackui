@@ -1,16 +1,33 @@
 
+import React, { useState, useEffect, } from 'react';
 import { Card } from './model/Card';
 import CardDisplay from './CardDisplay';
 import { get } from 'http';
+import { cardAPI } from './api/cardAPI';
+import { Player } from './model/Player';
 
 interface CardListProps {
+    player: Player;
+    loadCard: (playerId: number) => Promise<Card>;
     cards: Card[];
-    onDeal: (param: any) => void;
+    setCards: React.Dispatch<React.SetStateAction<Card[]>>;
 
-}
+  }
 
-function CardsList({ onDeal, cards }: CardListProps) {
+  function CardsList({ player, loadCard, cards, setCards  }: CardListProps) {
 
+  
+    const handleClick = async () => {
+      try {
+        const aCard = await loadCard(player.id);
+        console.log('My card: ', aCard);
+  
+        const newArray: Card[] = [...cards, aCard];
+        setCards(newArray);
+      } catch (error) {
+        console.error('Error loading card:', error);
+      }
+    };
 
     return (
         <>
@@ -18,7 +35,6 @@ function CardsList({ onDeal, cards }: CardListProps) {
                 {cards.map((card) => (
                     <div key={card.id} className="cols-sm">
                         <CardDisplay card={card} />
-
                     </div>
                 ))}
             </div>
@@ -26,10 +42,10 @@ function CardsList({ onDeal, cards }: CardListProps) {
             <div className="row">
                 <button
                     className=" bordered"
-                    onClick={onDeal}
+                    onClick={handleClick}
                 >
-                    <span className="icon-edit "></span>
-                    Deal
+                    <span className="icon-alert "></span>
+                    Hit
                 </button>
             </div>
         </>

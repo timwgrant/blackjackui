@@ -1,5 +1,4 @@
 import React from 'react';
-import PlayersPage from './game/Players';
 import GamePage from './game/GamePage';
 import HomePage from './home/HomePage';
 import './App.css';
@@ -17,14 +16,16 @@ function App() {
           <span className="icon-home"></span>
           Home
         </NavLink>
-        <NavLink to="/projects" className="button rounded">
-          Projects
+        <NavLink to="/game" className="button rounded">
+          Game
         </NavLink>
+
       </header>
       <div className="container">
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/cards" element={<GamePage />} />
+          <Route path="/game" element={<GamePage />} />
+
         </Routes>
       </div>
     </Router>

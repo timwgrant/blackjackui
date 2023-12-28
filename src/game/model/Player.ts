@@ -1,17 +1,15 @@
+import { Card } from "./Card";
+
 export class Player {
-    id: number | undefined;
+    id: number = -1;
     name: string = '';
+    isDealer: boolean = false;
 
-
-
-
-    get isNew(): boolean {
-        return this.id === undefined;
-    }
 
     constructor(initializer?: any) {
         if (!initializer) return;
         if (initializer.id) this.id = initializer.id;
-        if (initializer.cardNumber) this.name = initializer.name;  
+        if (initializer.name) this.name = initializer.name;  
+        if (initializer.isDealer) this.isDealer = initializer.isDealer;  
       }
 }
