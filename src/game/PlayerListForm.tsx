@@ -1,41 +1,29 @@
+// PlayerFormList.jsx
 import React from 'react';
-import PlayerForm from './PlayerForm';
-import { SubmitHandler } from 'react-hook-form';
 import { Player } from './model/Player';
+import PlayerForm from './PlayerForm';
 
 
-interface PlayerListFormProps{
-    savePlayer: (player: Player) => Promise<Player>;
+interface PlayerFormListProps {
     players: Player[];
-    setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
+    savePlayer: (player: Player) => Promise<Player>;
+    setPlayers: React.Dispatch<React.SetStateAction<any>>;
 }
 
-function PlayerListForm({ savePlayer, players, setPlayers }:  PlayerListFormProps) {
-
-
-    const onSubmit: SubmitHandler<{ name: string; balance: number }> = (data) => {
-        const newPlayer = new Player(data);
-  
-    console.log('data ' + data);
-    console.log(data);
-    savePlayer(newPlayer);
-
-  };
-
-  return (
-    <div>
-      <h1>Add Players</h1>
-      <PlayerForm onSubmit={onSubmit} />
-      <h2>Players List</h2>
-      <ul>
-        {players.map((player, index) => (
-          <li key={index}>
-            {player.name} (Balance : ${player.balance})
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+const PlayerListForm: React.FC<PlayerFormListProps> = ({ players,  savePlayer, setPlayers}) => {
+    return (
+        <div>
+            <PlayerForm savePlayer={savePlayer} setPlayers={setPlayers } />
+            <h2>Player List</h2>
+            <ul>
+                {players.map((player) => (
+                    <li key={player.id}>
+                        {player.name} - Balance: {player.balance}
+                    </li>
+                ))}
+            </ul>
+        </div>
+    );
+};
 
 export default PlayerListForm;

@@ -12,9 +12,11 @@ import { playerApi } from './api/playerAPI';
 function BlackjackGame() {
     const [players, setPlayers] = useState<Player[]>([]);
     const [error, setError] = useState<string | undefined>(undefined);
+    const [tempPlayerId, setTempPlayerId] = useState<number>(1);
 
     const savePlayer = async (player: Player): Promise<Player> => {
-
+        console.log("player");
+        console.log(player);
         return playerApi
             .put(player)
             .then(updatedPlayer => {
@@ -26,6 +28,15 @@ function BlackjackGame() {
                 console.error('Error updating player:', error);
                 throw error; // Rethrow the error to propagate it to the caller
             });
+
+    };
+    const savePlayer2 = async (player: Player): Promise<Player> => {
+        console.log("player");
+        console.log(player);
+        player.id = tempPlayerId;
+        setTempPlayerId((prevId) => prevId + 1);
+        return player;
+            
     };
 
     const handleUpdatePlayer = (updatedPlayer: Player) => {
@@ -42,6 +53,8 @@ function BlackjackGame() {
         }
     };
 
+    const isTabDisabled = true; // Set this based on your conditions
+
     return (
         <Router>
             <header className="sticky">
@@ -55,7 +68,11 @@ function BlackjackGame() {
                 <NavLink to="/players" className="button rounded">
                     Players
                 </NavLink>
-                <NavLink to="/game" className="button rounded">
+                <NavLink
+                    to="/game"
+                    className={`button rounded ${players.length === 0 ? 'disabled' : ''}`}
+                    tabIndex={players.length === 0 ? -1 : 0}
+                >
                     Game
                 </NavLink>
 
@@ -63,7 +80,7 @@ function BlackjackGame() {
             <div className="container">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/players" element={<PlayerListForm savePlayer={savePlayer} players={players} setPlayers={setPlayers}  />} />
+                    <Route path="/players" element={<PlayerListForm savePlayer={savePlayer2} players={players} setPlayers={setPlayers}  />} />
                     <Route path="/game" element={<GamePage players={players} />} />
 
                 </Routes>

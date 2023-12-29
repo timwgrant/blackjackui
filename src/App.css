@@ -28,6 +28,26 @@
   color: #61dafb;
 }
 
+.disabled {
+  pointer-events: none; /* Disable click events */
+  color: gray; /* or any other disabled styling */
+  text-decoration: none;
+  cursor: not-allowed;
+}
+
+/* Add this to your CSS file or style block */
+.folder-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  padding: 8px;
+  color: #333; /* Adjust the color as needed */
+}
+
+.folder-link:hover {
+  background-color: #f0f0f0; /* Change the background color on hover */
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
