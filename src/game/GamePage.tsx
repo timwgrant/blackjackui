@@ -42,6 +42,11 @@ function GamePage(props: any) {
 
         if (playerIndex === -1) {
             setPlayers(prevPlayers => [...prevPlayers, updatedPlayer]);
+            const playerComposite = new PlayerComposite({
+                player: updatedPlayer
+            });
+    
+            setPlayerComposites(prevComposites => [...prevComposites, playerComposite]);
         } else {
             setPlayers(prevPlayers => {
                 const updatedPlayers = [...prevPlayers];
@@ -54,34 +59,16 @@ function GamePage(props: any) {
     const initGame = async () => {
         let aDealer = new Player({ name: 'Dealer', isDealer: true });
         await savePlayer(aDealer);
-        let cardCollection: Card[] = [
-            await loadCard(aDealer.id),
-            await loadCard(aDealer.id),
-            // Add more cards as needed
-        ];
-        let playerComposite = new PlayerComposite({
-            player: aDealer,
-            cards: cardCollection,
-        });
-        setPlayerComposites(prevComposites => [...prevComposites, playerComposite]);
-
 
         let aPlayer = new Player({ name: 'Joe', isDealer: false });
         await savePlayer(aPlayer);
-        cardCollection = [
-            await loadCard(aPlayer.id),
-            await loadCard(aPlayer.id),
-            // Add more cards as needed
-        ];
-        playerComposite = new PlayerComposite({
-            player: aPlayer,
-            cards: cardCollection,
-        });
 
-        setPlayerComposites(prevComposites => [...prevComposites, playerComposite]);
+        console.log('playerComposites');
+        console.log(playerComposites);
+
     };
 
-    const sortedPlayers = [...players].sort((a, b) => a.id - b.id);
+    const sortedPlayers = [...playerComposites].sort((a, b) => a.player.id - b.player.id);
     return (
         <>
             <div >
@@ -106,9 +93,9 @@ function GamePage(props: any) {
                 <>
                     <h1>Blackjack</h1>
                     {sortedPlayers.map((player) => (
-                        <div key={player.id} >
+                        <div key={player.player.id} >
                             <PlayerDisplay
-                                player={player}
+                                player={player.player}
                                 loadCard={loadCard} />
                         </div>
                     ))}

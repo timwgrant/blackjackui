@@ -57,7 +57,7 @@ function delay(ms: number) {
   const cardAPI = {
     get(playerid : number) {
       return fetch(`${url}/${playerid}`)
-        .then(delay(600))
+        //.then(delay(600))
         .then(checkStatus)
         .then(parseJSON)
         .then(convertToCardModel)
