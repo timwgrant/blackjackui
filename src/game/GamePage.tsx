@@ -1,16 +1,14 @@
-import React, { useState, useEffect, } from 'react';
-import CardsList from './CardsList';
+import React, { } from 'react';
 import { cardAPI } from './api/cardAPI';
-import { Card } from './model/Card';
 import { Player } from './model/Player';
-import { playerApi } from './api/playerAPI';
 import PlayerDisplay from './PlayerDisplay';
-import { PlayerComposite } from './model/PlayerComposite';
 
-function GamePage(props: any) {
-    const [players, setPlayers] = useState<Player[]>([]);
-    const [playerComposites, setPlayerComposites] = useState<PlayerComposite[]>([]);
-    const [error, setError] = useState<string | undefined>(undefined);
+
+interface GamePageProps {
+    players: Player[];
+}
+
+function GamePage({ players }: GamePageProps) {
 
     const loadCard = async (playerId: number) => {
         console.log(playerId);
@@ -19,56 +17,16 @@ function GamePage(props: any) {
     };
 
     const handleClick = () => {
-        console.log({ playerComposites });
-    };
-
-    const savePlayer = async (player: Player): Promise<Player> => {
-
-        return playerApi
-            .put(player)
-            .then(updatedPlayer => {
-                handleUpdatePlayer(updatedPlayer);
-                console.log('Player updated:', updatedPlayer);
-                return updatedPlayer; // Return the updated player
-            })
-            .catch(error => {
-                console.error('Error updating player:', error);
-                throw error; // Rethrow the error to propagate it to the caller
-            });
-    };
-
-    const handleUpdatePlayer = (updatedPlayer: Player) => {
-        const playerIndex = players.findIndex(p => p.id === updatedPlayer.id);
-
-        if (playerIndex === -1) {
-            setPlayers(prevPlayers => [...prevPlayers, updatedPlayer]);
-            const playerComposite = new PlayerComposite({
-                player: updatedPlayer
-            });
-    
-            setPlayerComposites(prevComposites => [...prevComposites, playerComposite]);
-        } else {
-            setPlayers(prevPlayers => {
-                const updatedPlayers = [...prevPlayers];
-                updatedPlayers[playerIndex] = updatedPlayer;
-                return updatedPlayers;
-            });
-        }
+        console.log({ players });
     };
 
     const initGame = async () => {
-        let aDealer = new Player({ name: 'Dealer', isDealer: true });
-        await savePlayer(aDealer);
-
-        let aPlayer = new Player({ name: 'Joe', isDealer: false });
-        await savePlayer(aPlayer);
-
-        console.log('playerComposites');
-        console.log(playerComposites);
+  
+         console.log(players);
 
     };
 
-    const sortedPlayers = [...playerComposites].sort((a, b) => a.player.id - b.player.id);
+    const sortedPlayers = [...players].sort((a, b) => a.id - b.id);
     return (
         <>
             <div >
@@ -93,9 +51,9 @@ function GamePage(props: any) {
                 <>
                     <h1>Blackjack</h1>
                     {sortedPlayers.map((player) => (
-                        <div key={player.player.id} >
+                        <div key={player.id} >
                             <PlayerDisplay
-                                player={player.player}
+                                player={player}
                                 loadCard={loadCard} />
                         </div>
                     ))}

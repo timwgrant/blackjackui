@@ -1,13 +1,15 @@
 import React from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
+import { Player } from './model/Player';
 
-interface FormData {
-  name: string;
-  balance: number;
-}
 
 interface PlayerFormProps {
   onSubmit: SubmitHandler<FormData>;
+}
+
+interface FormData{
+    name: string;
+    balance: number;
 }
 
 function PlayerForm({ onSubmit }: PlayerFormProps) {

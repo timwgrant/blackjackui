@@ -1,19 +1,25 @@
-import React, { useState } from 'react';
+import React from 'react';
 import PlayerForm from './PlayerForm';
 import { SubmitHandler } from 'react-hook-form';
+import { Player } from './model/Player';
 
-interface Player {
-  name: string;
-  balance: number;
+
+interface PlayerListFormProps{
+    savePlayer: (player: Player) => Promise<Player>;
+    players: Player[];
+    setPlayers: React.Dispatch<React.SetStateAction<Player[]>>;
 }
 
-function PlayerListForm() {
-  const [players, setPlayers] = useState<Player[]>([]);
+function PlayerListForm({ savePlayer, players, setPlayers }:  PlayerListFormProps) {
 
-  const onSubmit: SubmitHandler<Player> = (data) => {
+
+    const onSubmit: SubmitHandler<{ name: string; balance: number }> = (data) => {
+        const newPlayer = new Player(data);
+  
+    console.log('data ' + data);
     console.log(data);
-    setPlayers((prevPlayers) => [...prevPlayers, data]);
-    // Do something with the submitted data
+    savePlayer(newPlayer);
+
   };
 
   return (
