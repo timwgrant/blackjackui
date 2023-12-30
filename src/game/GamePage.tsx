@@ -56,7 +56,7 @@ function GamePage({ players }: GamePageProps) {
                     onClick={initGame}
                 >
                     <span className="icon-edit "></span>
-                    Init Game
+                    Deal
                 </button>
             </div>
             <div>

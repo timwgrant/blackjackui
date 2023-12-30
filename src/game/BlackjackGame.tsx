@@ -26,9 +26,11 @@ function BlackjackGame() {
     }, []); 
 
     const savePlayer = async (player: Player): Promise<Player> => {
+        console.log("before save ", player);
         return playerApi
             .put(player)
             .then(updatedPlayer => {
+                console.log('pre Player updated:', updatedPlayer);
                 handleUpdatePlayer(updatedPlayer);
                 console.log('Player updated:', updatedPlayer);
                 return updatedPlayer; // Return the updated player

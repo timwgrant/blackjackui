@@ -32,9 +32,9 @@ function CardsList({ player, loadCard, cards, setCards }: CardListProps) {
     return (
         <>
             <div className="row">
-                {cards.map((card) => (
+                {cards.map((card, index) => (
                     <div key={card.id} className="cols-sm">
-                        <CardDisplay card={card} />
+                        <CardDisplay card={card} hideCard={player.isDealer && index === 0} />
                     </div>
                 ))}
             </div>

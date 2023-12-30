@@ -72,7 +72,7 @@ const playerApi = {
   },
 
   put(player: Player): Promise<Player> {
-    console.log(JSON.stringify(player));
+    console.log('prior to save ', JSON.stringify(player));
     return new Promise((resolve, reject) => {
        fetch(`${url}`, {
         method: 'POST',
@@ -88,8 +88,9 @@ const playerApi = {
           return response.json();
         })
         .then(updatedPlayer => {
+          console.log('about to resolve ', updatedPlayer);
           // Assuming the server returns the updated player object
-          resolve(new Player(updatedPlayer));
+          resolve(updatedPlayer);
         })
         .catch(error => {
           reject(error);

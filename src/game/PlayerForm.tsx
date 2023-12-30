@@ -21,14 +21,13 @@ const PlayerForm: React.FC<PlayerFormProps> = ({ savePlayer, setPlayers }) => {
     try {
       console.log(data);
       const savedPlayer = await savePlayer(data);
-      //setPlayers((prevPlayers: any) => [...prevPlayers, savedPlayer]);
-      //const savedPlayer = await savePlayer(data);
-      //console.log('Player saved:', savedPlayer);
+      console.log(savedPlayer);
       reset(); // Reset the form after successful submission
     } catch (error) {
       console.error('Error saving player:', error);
     }
   };
+  
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>

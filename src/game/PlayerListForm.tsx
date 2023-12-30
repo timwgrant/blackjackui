@@ -11,8 +11,12 @@ interface PlayerFormListProps {
 }
 
 function PlayerListForm({ players, savePlayer, setPlayers }: PlayerFormListProps) {
+    const handleClick = () => {
+        console.log({ players });
+    };
     
     return (
+        <>
         <div>
             <PlayerForm savePlayer={savePlayer} setPlayers={setPlayers } />
             <h2>Player List</h2>
@@ -24,6 +28,16 @@ function PlayerListForm({ players, savePlayer, setPlayers }: PlayerFormListProps
                 ))}
             </ul>
         </div>
+        <div >
+                <button
+                    className=" rounded"
+                    onClick={handleClick}
+                >
+                    <span className="icon-alert "></span>
+                    player
+                </button>
+            </div>
+        </>
     );
 };
 
