@@ -12,21 +12,21 @@ interface CardListProps {
     cards: Card[];
     setCards: React.Dispatch<React.SetStateAction<Card[]>>;
 
-  }
+}
 
-  function CardsList({ player, loadCard, cards, setCards  }: CardListProps) {
+function CardsList({ player, loadCard, cards, setCards }: CardListProps) {
 
-  
+
     const handleClick = async () => {
-      try {
-        const aCard = await loadCard(player.id);
-        console.log('My card: ', aCard);
-  
-        const newArray: Card[] = [...cards, aCard];
-        setCards(newArray);
-      } catch (error) {
-        console.error('Error loading card:', error);
-      }
+        try {
+            const aCard = await loadCard(player.id);
+            console.log('My card: ', aCard);
+
+            const newArray: Card[] = [...cards, aCard];
+            setCards(newArray);
+        } catch (error) {
+            console.error('Error loading card:', error);
+        }
     };
 
     return (
@@ -39,15 +39,17 @@ interface CardListProps {
                 ))}
             </div>
 
-            <div className="row">
-                <button
-                    className=" bordered"
-                    onClick={handleClick}
-                >
-                    <span className="icon-alert "></span>
-                    Hit
-                </button>
-            </div>
+            {!player.isDealer && (
+                <div className="row">
+                    <button
+                        className="bordered"
+                        onClick={handleClick}
+                    >
+                        <span className="icon-alert"></span>
+                        Hit
+                    </button>
+                </div>
+            )}
         </>
     )
 }

@@ -2,7 +2,7 @@ import { Card } from "./Card";
 import { Player } from "./Player";
 
 export class PlayerComposite {
-    player: Player | undefined;
+    player: Player = new Player();
     cards: Card[] = [];
 
 

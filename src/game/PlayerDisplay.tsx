@@ -6,17 +6,23 @@ import { Card } from './model/Card';
 
 interface PlayerDisplayProps {
     player: Player;
+    initialCards: Card[];
     loadCard: (playerId: number) => Promise<Card>;
 
 }
 
-function PlayerDisplay({ player, loadCard }: PlayerDisplayProps) {
+function PlayerDisplay({ player, initialCards, loadCard }: PlayerDisplayProps) {
     const [cards, setCards] = useState<Card[]>([]);
  
     const handleClick = () => {
         console.log({ player });
     };
 
+    console.log('size ', cards.length);
+    if(cards.length == 0){
+        setCards(prevCards => [...prevCards, ...initialCards]);
+    }
+    
     console.log("player display " + player.id + ' ' + player.name);
     return (
         <>
