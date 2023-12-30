@@ -1,6 +1,6 @@
 import { Player } from '../model/Player'
 //const baseUrl = '/api';
-const baseUrl = 'http://192.168.6.251:8080/api';
+const baseUrl = '/api';
 const url = `${baseUrl}/player`
 
 function translateStatusToErrorMessage(status: number) {

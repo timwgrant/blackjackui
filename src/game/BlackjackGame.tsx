@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../App.css';
 
 import { BrowserRouter as Router, Routes, Route, NavLink } from 'react-router-dom';
@@ -7,16 +7,25 @@ import HomePage from '../home/HomePage';
 import GamePage from './GamePage';
 import { Player } from './model/Player';
 import { playerApi } from './api/playerAPI';
+import { set } from 'react-hook-form';
 
 
 function BlackjackGame() {
     const [players, setPlayers] = useState<Player[]>([]);
     const [error, setError] = useState<string | undefined>(undefined);
-    const [tempPlayerId, setTempPlayerId] = useState<number>(1);
+
+
+    useEffect(() => {
+        // Perform an action the first time the page is initially loaded
+        const dealer = new Player({name: "Dealer", isDealer: true });
+        savePlayer(dealer);
+
+        return () => {
+            // Cleanup logic goes here
+        };
+    }, []); 
 
     const savePlayer = async (player: Player): Promise<Player> => {
-        console.log("player");
-        console.log(player);
         return playerApi
             .put(player)
             .then(updatedPlayer => {
@@ -29,14 +38,6 @@ function BlackjackGame() {
                 throw error; // Rethrow the error to propagate it to the caller
             });
 
-    };
-    const savePlayer2 = async (player: Player): Promise<Player> => {
-        console.log("player");
-        console.log(player);
-        player.id = tempPlayerId;
-        setTempPlayerId((prevId) => prevId + 1);
-        return player;
-            
     };
 
     const handleUpdatePlayer = (updatedPlayer: Player) => {
@@ -80,7 +81,7 @@ function BlackjackGame() {
             <div className="container">
                 <Routes>
                     <Route path="/" element={<HomePage />} />
-                    <Route path="/players" element={<PlayerListForm savePlayer={savePlayer2} players={players} setPlayers={setPlayers}  />} />
+                    <Route path="/players" element={<PlayerListForm savePlayer={savePlayer} players={players} setPlayers={setPlayers}  />} />
                     <Route path="/game" element={<GamePage players={players} />} />
 
                 </Routes>

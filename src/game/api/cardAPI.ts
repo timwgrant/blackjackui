@@ -1,6 +1,6 @@
 import {Card} from '../model/Card'
-const baseUrl = 'http://192.168.6.251:8080';
-const url = `${baseUrl}/api/dealCard`
+const baseUrl = '/api';
+const url = `${baseUrl}/dealCard`
 
 function translateStatusToErrorMessage(status: number) {
     switch (status) {

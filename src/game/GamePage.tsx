@@ -1,4 +1,4 @@
-import React, { } from 'react';
+import React, { useEffect } from 'react';
 import { cardAPI } from './api/cardAPI';
 import { Player } from './model/Player';
 import PlayerDisplay from './PlayerDisplay';
@@ -9,6 +9,8 @@ interface GamePageProps {
 }
 
 function GamePage({ players }: GamePageProps) {
+
+    
 
     const loadCard = async (playerId: number) => {
         console.log(playerId);
@@ -21,8 +23,13 @@ function GamePage({ players }: GamePageProps) {
     };
 
     const initGame = async () => {
-  
-         console.log(players);
+        players.forEach(async (aPlayer) => {
+            const card1 = await loadCard(aPlayer.id);
+            const card2 = await loadCard(aPlayer.id);
+
+            console.log(`Cards for player ${aPlayer.id}:`, card1, card2);
+        });
+        console.log(players);
 
     };
 
@@ -31,7 +38,7 @@ function GamePage({ players }: GamePageProps) {
         <>
             <div >
                 <button
-                    className=" bordered"
+                    className=" hidden"
                     onClick={handleClick}
                 >
                     <span className="icon-alert "></span>
@@ -40,7 +47,7 @@ function GamePage({ players }: GamePageProps) {
             </div>
             <div className="row">
                 <button
-                    className=" bordered"
+                    className=" hidden"
                     onClick={initGame}
                 >
                     <span className="icon-edit "></span>

@@ -9,6 +9,7 @@ import PlayerListForm from './game/PlayerListForm';
 import BlackjackGame from './game/BlackjackGame';
 
 function App() {
+  console.log("starting app");
   return (
     <div>
       <BlackjackGame/>

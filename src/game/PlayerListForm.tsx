@@ -1,5 +1,5 @@
 // PlayerFormList.jsx
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Player } from './model/Player';
 import PlayerForm from './PlayerForm';
 
@@ -10,7 +10,8 @@ interface PlayerFormListProps {
     setPlayers: React.Dispatch<React.SetStateAction<any>>;
 }
 
-const PlayerListForm: React.FC<PlayerFormListProps> = ({ players,  savePlayer, setPlayers}) => {
+function PlayerListForm({ players, savePlayer, setPlayers }: PlayerFormListProps) {
+    
     return (
         <div>
             <PlayerForm savePlayer={savePlayer} setPlayers={setPlayers } />
